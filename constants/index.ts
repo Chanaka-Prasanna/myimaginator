@@ -6,6 +6,9 @@ import { icons } from "./icons";
 
 export const navItems = [
   { name: "Home", url: "/" },
+
+  { name: "MyImaginator", url: "/caption-generator" },
+  { name: "Captions", url: "/captions" },
   { name: "Pricing", url: "/pricing" },
   { name: "Contact", url: "/contact" },
 ];

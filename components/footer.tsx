@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mt-10 text-sm text-gray-500">
+    <footer className="flex h-[60px] items-center justify-center text-sm text-gray-500 md:p-10">
       <a href="/privacy-policy" className="mr-4 hover:underline">
         Privacy Policy
       </a>

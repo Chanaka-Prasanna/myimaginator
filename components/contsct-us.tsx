@@ -15,13 +15,52 @@ import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 
+export const projects = [
+  {
+    title: "Stripe",
+    description:
+      "A technology company that builds economic infrastructure for the internet.",
+    link: "https://stripe.com",
+  },
+  {
+    title: "Netflix",
+    description:
+      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
+    link: "https://netflix.com",
+  },
+  {
+    title: "Google",
+    description:
+      "A multinational technology company that specializes in Internet-related services and products.",
+    link: "https://google.com",
+  },
+  {
+    title: "Meta",
+    description:
+      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+    link: "https://meta.com",
+  },
+  {
+    title: "Amazon",
+    description:
+      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
+    link: "https://amazon.com",
+  },
+  {
+    title: "Microsoft",
+    description:
+      "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+    link: "https://microsoft.com",
+  },
+];
+
 const loginSchema = z.object({
-  name: z.string().min(5, {
-    message: "Title is required",
+  name: z.string().min(3, {
+    message: "Title is required (min - 3 charactors)",
   }),
   email: z.string().email("Please enter a valid email address."),
   message: z.string().min(15, {
-    message: "Description is required (min - 30 charactors)",
+    message: "Description is required (min - 15 charactors)",
   }),
 });
 
@@ -41,12 +80,9 @@ const ContactUs = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      //   setIsSubmitting(true);
-      //   const res = await signIn({
-      //     email: data.email,
-      //     password: data.password,
-      //   });
-      //   console.log(res);
+      setIsSubmitting(true);
+
+      console.log(data.message);
     } catch (error) {
       console.error(error);
     } finally {
@@ -54,7 +90,7 @@ const ContactUs = () => {
     }
   };
   return (
-    <section id="contact" className="px-6 py-12">
+    <section id="contact" className=" px-6 py-12">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="section-title ">Get In Touch</h2>
         <p className="section-description mb-8 mt-10">
@@ -62,18 +98,20 @@ const ContactUs = () => {
         </p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-8 p-6">
+            <div className="space-y-8 px-2 md:px-6 ">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex justify-start">Title</FormLabel>
+                    <FormLabel className="flex justify-start text-lg">
+                      Name
+                    </FormLabel>
                     <FormControl>
                       <Input
                         id="name"
                         type="text"
-                        className="bg-[#11142b]"
+                        className="border-none bg-[#11142b] "
                         {...field}
                       />
                     </FormControl>
@@ -86,14 +124,14 @@ const ContactUs = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex justify-start">
-                      Subtitle
+                    <FormLabel className="flex justify-start text-lg">
+                      Email
                     </FormLabel>
                     <FormControl>
                       <Input
                         id="email"
                         type="email"
-                        className="bg-[#11142b]"
+                        className="border-none bg-[#11142b]  "
                         {...field}
                       />
                     </FormControl>
@@ -105,15 +143,15 @@ const ContactUs = () => {
                 control={form.control}
                 name="message"
                 render={({ field }) => (
-                  <FormItem className="border-0">
-                    <FormLabel className="flex justify-start">
+                  <FormItem className="">
+                    <FormLabel className="flex justify-start text-lg autofill:bg-[#11142b]">
                       Message
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={10}
                         id="message"
-                        className=" bg-[#11142b]"
+                        className=" border-none bg-[#11142b]"
                         {...field}
                       />
                     </FormControl>
