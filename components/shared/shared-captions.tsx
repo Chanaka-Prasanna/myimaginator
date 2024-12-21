@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatTags } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { AiOutlineFile } from "react-icons/ai";
 
 const SharedCaptions: React.FC = () => {
   const { captions, loading, setLoading, setCaptions } = useDataContext();
@@ -129,6 +130,7 @@ const SharedCaptions: React.FC = () => {
         <EmptyResultSection
           title="No Captions Found"
           description="Be the first to create a caption and share!"
+          icon={<AiOutlineFile />}
         />
       )}
     </div>
