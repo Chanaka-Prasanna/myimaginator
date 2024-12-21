@@ -15,7 +15,10 @@ export async function POST(request: Request) {
       return Response.json({ error: "Invalid email address" }, { status: 400 });
     }
 
-    const sanitize = (str: string) => str.replace(/[<>]/g, "");
+    const sanitize = (str: string) => {
+      if (!str) return;
+      return str.replace(/[<>]/g, "");
+    };
     const safeName = sanitize(name);
     const safeEmail = sanitize(email);
     const safeMessage = sanitize(message);
@@ -65,7 +68,7 @@ export async function POST(request: Request) {
                       <strong>Message:</strong>
                     </p>
                     <div style="margin-top: 10px; padding: 15px; background-color: #1d2147; border-radius: 6px; color: #9ca3af;">
-                      ${safeMessage.split("\n").join("<br>")}
+                      ${safeMessage?.split("\n").join("<br>")}
                     </div>
                   </td>
                 </tr>
