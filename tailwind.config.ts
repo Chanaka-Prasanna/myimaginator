@@ -18,6 +18,7 @@ export default {
           DEFAULT: "#11142b",
           foreground: "hsl(var(--card-foreground))",
         },
+        text_secondary: "#e600ac",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

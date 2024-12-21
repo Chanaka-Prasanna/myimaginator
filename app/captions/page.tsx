@@ -6,7 +6,7 @@ import { getAllCaptions } from "@/lib/appwrite";
 import React, { useEffect } from "react";
 
 const Captions = () => {
-  const { setCaptions, loading, setLoading } = useDataContext();
+  const { loading, captions, setCaptions, setLoading } = useDataContext();
 
   useEffect(() => {
     const fetchCaptions = async () => {
@@ -20,12 +20,12 @@ const Captions = () => {
         setLoading(false);
       }
     };
-    fetchCaptions();
+    if (captions.length === 0) fetchCaptions();
   }, []);
 
   return (
-    <div className="mt-5 px-10">
-      {!loading && <SharedCaptions />}
+    <div className="mt-5 px-10 max-md:mt-0 max-md:px-0">
+      <SharedCaptions />
       {loading && <LoadingSpinner isLoading={loading} />}
     </div>
   );

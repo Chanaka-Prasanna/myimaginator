@@ -5,9 +5,11 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface DataContextProps {
   captions: SimplifiedPost[];
-  setCaptions: React.Dispatch<React.SetStateAction<SimplifiedPost[]>>;
   loading: boolean;
+  userId: string;
+  setCaptions: React.Dispatch<React.SetStateAction<SimplifiedPost[]>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
@@ -17,10 +19,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [captions, setCaptions] = useState<SimplifiedPost[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
 
   return (
     <DataContext.Provider
-      value={{ captions, loading, setCaptions, setLoading }}
+      value={{ captions, loading, userId, setCaptions, setLoading, setUserId }}
     >
       {children}
     </DataContext.Provider>

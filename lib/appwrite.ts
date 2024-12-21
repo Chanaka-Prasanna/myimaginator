@@ -1,5 +1,4 @@
 import { Client, Account, ID, Avatars, Databases, Query } from "appwrite";
-
 interface Props {
   endpoint: string;
   projectId: string;
@@ -24,18 +23,15 @@ const {
   databaseId,
   userCollectionId,
   captionsCollectionId,
-  storageId,
 } = config;
 
 // Init your Web SDK
 const client = new Client();
-const account = new Account(client);
+export const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
 
-client
-  .setEndpoint(endpoint) // Your Appwrite Endpoint
-  .setProject("675d443100183b6f3288"); // Your project ID
+client.setEndpoint(endpoint).setProject("675d443100183b6f3288");
 
 export const createUser = async ({
   email,
@@ -98,6 +94,15 @@ export const signIn = async ({
   }
 };
 
+export const logout = async () => {
+  try {
+    // Delete the current session in Appwrite
+    await account.deleteSession("current");
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
@@ -106,7 +111,7 @@ export const getCurrentUser = async () => {
     const currentUser = await databases.listDocuments(
       databaseId,
       userCollectionId,
-      [Query.equal("accountId", currentAccount.$id)]
+      [Query.equal("$id", currentAccount.$id)]
     );
 
     if (!currentAccount) throw Error;
@@ -117,7 +122,12 @@ export const getCurrentUser = async () => {
   }
 };
 
-export const shareCaption = async () => {
+export const shareCaption = async (
+  topic: string,
+  tone: string,
+  tags: string[],
+  caption: string
+) => {
   try {
     const user = await account.get();
     console.log(user);
@@ -132,11 +142,11 @@ export const shareCaption = async () => {
       captionsCollectionId,
       captionId,
       {
-        topic: "Title 4",
-        tone: "tonec 4",
-        tags: ["tag4", "tag4"],
+        topic,
+        tone,
+        tags,
         user: user.$id,
-        caption: "Hey This is a caotion",
+        caption,
       }
     );
 
@@ -163,10 +173,13 @@ export const getAllCaptions = async () => {
       topic: post.topic,
       tags: post.tags,
       caption: post.caption,
+      likes: post.likes,
       postCreatedAt: post.$createdAt,
       user: {
         captions: post.user.captions,
         name: `${post.user.firstName} ${post.user.lastName}`,
+        avatar: post.user.avatar,
+        isLiked: post.user.likedCaptions.includes(post.$id),
       },
     }));
   } catch (error: any) {
@@ -174,10 +187,7 @@ export const getAllCaptions = async () => {
   }
 };
 
-export const like = async (
-  captionId = "675d7f8f000f6de93b6e",
-  currentLikes = 7
-) => {
+export const like = async (captionId: string, currentLikes: number) => {
   try {
     const user = await account.get();
     console.log(user);
