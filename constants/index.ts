@@ -6,7 +6,6 @@ import { icons } from "./icons";
 
 export const navItems = [
   { name: "Home", url: "/" },
-
   { name: "Generate", url: "/caption-generator" },
   { name: "Captions", url: "/captions" },
   { name: "Pricing", url: "#pricing" },
@@ -19,29 +18,26 @@ export const plans = [
     description: "Basic tools for individuals",
     price: "$0",
     features: [
-      "Dashboard Access",
-      "Customer Support",
-      "Unlimited Campaigns",
-      "Unlimited Influencers",
-      "Fraud Prevention",
+      "Limited Tones",
+      "No Customization",
+      "Basic Customer Support",
       "AI Processing",
     ],
-    buttonText: "Choose",
+    buttonText: "Current Plan",
   },
   {
-    name: "ENTERPRISE",
+    name: "PREMIUM",
     description: "Essential tools for individuals",
-    price: "$79",
+    price: "Coming Soon",
     pricePerMonth: "/ per month",
     features: [
-      "Dashboard Access",
+      "All Tones",
+      "Full Customization",
       "Customer Support",
-      "Unlimited Campaigns",
-      "Unlimited Influencers",
-      "Fraud Prevention",
-      "AI Processing",
+      "Access to Dashboard",
+      "Post Performance Tips",
     ],
-    buttonText: "Choose",
+    buttonText: "Coming Soon",
   },
 ];
 
@@ -96,4 +92,22 @@ export const sections = [
     description:
       "Our state-of-the-art visual semantic search AI algorithms can find influencers with any lifestyle or ethos desired by the brand.",
   },
+];
+
+export const captionTones = [
+  "Casual",
+  "Professional",
+  "Inspirational",
+  "Humorous",
+  "Sarcastic",
+  "Emotional",
+  "Bold",
+  "Mysterious",
+  "Romantic",
+  "Minimalist",
+  "Trendy",
+  "Descriptive",
+  "Luxury",
+  "Call to Action",
+  "Reflective",
 ];

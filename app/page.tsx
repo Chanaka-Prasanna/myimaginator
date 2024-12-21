@@ -52,7 +52,7 @@ const Home = () => {
       <SectionWrapper>
         <WhatWeOffer />
       </SectionWrapper>
-      <div id="priccing">
+      <div id="pricing">
         <SectionWrapper>
           <Pricing />
         </SectionWrapper>

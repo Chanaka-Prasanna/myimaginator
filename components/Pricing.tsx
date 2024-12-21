@@ -28,7 +28,7 @@ const Pricing = () => {
               <CardTitle
                 className={`${
                   index === 0
-                    ? ` text-gradient-vertical-green`
+                    ? ` text-gradient-vertical-blue`
                     : ` text-gradient-vertical-pink`
                 } text-3xl`}
               >
@@ -36,6 +36,9 @@ const Pricing = () => {
               </CardTitle>
               <CardDescription className="text-xl text-white">
                 {item.description}
+                <div>
+                  <span className="text-base text-gray-400">{item.price}</span>
+                </div>
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-1">
@@ -57,13 +60,15 @@ const Pricing = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <p className="mt-0 text-lg text-gray-500">{feature}</p>
+                    <p className="mt-0 text-lg text-gray-400">{feature}</p>
                   </div>
                 ))}
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="btn-gradient w-full text-lg">Choose</Button>
+              <Button className="btn-gradient w-full cursor-default">
+                {item.buttonText}
+              </Button>
             </CardFooter>
           </Card>
         ))}

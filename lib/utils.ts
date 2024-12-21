@@ -7,3 +7,13 @@ export function cn(...inputs: ClassValue[]) {
 export const formatTags = (tags: string[]): string => {
   return tags.map((tag) => `${tag}`).join(" ");
 };
+
+export const handleScrollToSection = (sectionId: string) => {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    window.scrollTo({
+      top: section.offsetTop,
+      behavior: "smooth",
+    });
+  }
+};
