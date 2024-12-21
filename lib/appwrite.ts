@@ -31,7 +31,7 @@ export const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
 
-client.setEndpoint(endpoint).setProject("675d443100183b6f3288");
+client.setEndpoint(endpoint).setProject(projectId);
 
 export const createUser = async ({
   email,
