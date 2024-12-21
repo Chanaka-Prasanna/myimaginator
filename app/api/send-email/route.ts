@@ -1,10 +1,6 @@
-import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const apiKey = process.env.RESEND_API_KEY;
-if (!apiKey) {
-  throw new Error("RESEND_API_KEY is not defined in environment variables");
-}
 
 const resend = new Resend(apiKey);
 export async function POST(request: Request) {
@@ -13,10 +9,7 @@ export async function POST(request: Request) {
     const { name, email, message } = JSON.parse(body);
 
     if (!email || !email.includes("@")) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400 }
-      );
+      return Response.json({ error: "Invalid email address" }, { status: 400 });
     }
 
     const sanitize = (str: string) => str.replace(/[<>]/g, "");
@@ -91,12 +84,9 @@ export async function POST(request: Request) {
       `,
     });
 
-    return NextResponse.json({ success: true, data });
+    return Response.json({ success: true, data });
   } catch (error) {
     console.error("Email send error:", error);
-    return NextResponse.json(
-      { error: "Failed to send email" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Failed to send email" }, { status: 500 });
   }
 }
