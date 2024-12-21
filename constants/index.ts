@@ -7,10 +7,10 @@ import { icons } from "./icons";
 export const navItems = [
   { name: "Home", url: "/" },
 
-  { name: "Gnerate", url: "/caption-generator" },
+  { name: "Generate", url: "/caption-generator" },
   { name: "Captions", url: "/captions" },
-  { name: "Pricing", url: "/pricing" },
-  { name: "Contact", url: "/contact" },
+  { name: "Pricing", url: "#pricing" },
+  { name: "Contact", url: "#contact" },
 ];
 
 export const plans = [
@@ -88,7 +88,7 @@ export const sections = [
     title: "Optimizes Trends and Discovery",
     icon: icons.rocket,
     description:
-      "We identify trending influencers of the desired follower count and engagement level. Showing you useful stats to find the right one.",
+      "We analyze and showcase emerging content patterns, highlighting opportunities that align with your target audience.",
   },
   {
     title: "Lifestyle Matchmaking",

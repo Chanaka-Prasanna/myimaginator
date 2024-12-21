@@ -1,8 +1,11 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const HeroBanner = () => {
+  const router = useRouter();
+
   return (
     <section className="relative flex h-auto w-full flex-col-reverse px-4 pt-10 max-md:pb-10 md:flex-row md:px-[60px] ">
       {/* Text Content Section */}
@@ -25,7 +28,10 @@ const HeroBanner = () => {
           <Button className="btn-gradient h-[40px] w-[120px] px-4 py-2 text-lg font-bold">
             Try it Now
           </Button>
-          <Button className="btn-gray h-[40px] w-[140px] px-4 py-2 text-lg font-bold">
+          <Button
+            className="btn-gray h-[40px] w-[140px] px-4 py-2 text-lg font-bold"
+            onClick={() => router.push("/caption-generator")}
+          >
             View Pricing
           </Button>
         </div>

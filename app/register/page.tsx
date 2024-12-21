@@ -20,6 +20,7 @@ import Link from "next/link";
 // import DialogAlert from "./shared/AlertDialog";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/appwrite";
+import { useDataContext } from "@/context/DataContext";
 
 const registerSchema = z.object({
   fName: z.string().min(2, "First name must be at least 2 characters."),
@@ -44,8 +45,7 @@ const registerSchema = z.object({
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const RegisterForm = () => {
-  // const router = useRouter();
-
+  const router = useRouter();
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -57,8 +57,7 @@ const RegisterForm = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isAlert, setIsAlert] = useState<boolean>(false);
-
+  const { setUserId } = useDataContext();
   const onSubmit = async (data: RegisterFormValues) => {
     setIsSubmitting(true);
     try {
@@ -68,10 +67,10 @@ const RegisterForm = () => {
         lastName: data.lName,
         password: data.password,
       });
-      setIsAlert(true);
-      console.log(res);
-
-      // router.replace("/login");
+      const userId = res.$id;
+      localStorage.setItem("userId", userId);
+      setUserId(userId);
+      router.replace("/");
     } catch (error) {
       console.log(error);
     } finally {
@@ -79,22 +78,16 @@ const RegisterForm = () => {
     }
   };
 
-  // const closeDialog = () => {
-  //   setIsAlert(false);
-  // };
-
   return (
-    <div>
+    <div className="pt-16 max-md:px-2 max-md:pt-5 ">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="bg-gradient-top-to-bottom-inverse border-light-400 mx-auto max-w-sm space-y-8 rounded-xl border shadow-lg"
+          className=" mx-auto max-w-sm rounded-xl  border border-gray-600 shadow-lg "
         >
           <div className="p-6">
-            <h1 className="text-light-100 text-2xl font-semibold">Register</h1>
-            <p className="text-light-500">
-              Create a new account by filling out the details below
-            </p>
+            <h1 className=" text-2xl font-semibold">Register</h1>
+            <p>Create a new account by filling out the details below</p>
           </div>
           <div className=" space-y-4 p-6">
             <FormField
@@ -102,12 +95,12 @@ const RegisterForm = () => {
               name="fName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-light-200">First Name</FormLabel>
+                  <FormLabel>First Name</FormLabel>
                   <FormControl>
                     <Input
                       id="fName"
                       placeholder="John"
-                      className="border-light-400 bg-light-300 text-light-700 focus:ring-light-400 focus:ring-2"
+                      className="border border-gray-600 bg-card"
                       {...field}
                     />
                   </FormControl>
@@ -120,12 +113,12 @@ const RegisterForm = () => {
               name="lName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-light-200">Last Name</FormLabel>
+                  <FormLabel>Last Name</FormLabel>
                   <FormControl>
                     <Input
                       id="lName"
                       placeholder="Doe"
-                      className="border-light-400 bg-light-300 text-light-700 focus:ring-light-400 focus:ring-2"
+                      className="border border-gray-600 bg-card"
                       {...field}
                     />
                   </FormControl>
@@ -138,13 +131,13 @@ const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-light-200">Email</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="email"
                       type="email"
                       placeholder="johndoe@example.com"
-                      className="border-light-400 bg-light-300 text-light-700 focus:ring-light-400 focus:ring-2"
+                      className="border border-gray-600 bg-card"
                       {...field}
                     />
                   </FormControl>
@@ -157,12 +150,12 @@ const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-light-200">Password</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
                       id="password"
                       type="password"
-                      className="border-light-400 bg-light-300 text-light-700 focus:ring-light-400 focus:ring-2"
+                      className="border border-gray-600 bg-card"
                       {...field}
                     />
                   </FormControl>
@@ -170,19 +163,16 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              className="border-light-600 bg-light-600 text-light-100 hover:border-light-400 hover:text-light-600 w-full border transition-all hover:bg-transparent"
-            >
+            <Button type="submit" className="btn-gradient w-full">
               Register
             </Button>
           </div>{" "}
           <div>
-            <div className="text-light-500 p-6 text-center text-sm">
+            <div className=" p-6 text-center text-sm">
               Do you have an account?{" "}
               <Link
-                href="/register"
-                className="text-light-400 hover:text-light-300 underline"
+                href="/login"
+                className="text-gray-400 underline hover:text-gray-500"
               >
                 Sign in
               </Link>
@@ -191,15 +181,6 @@ const RegisterForm = () => {
         </form>
       </Form>
       {isSubmitting && <LoadingSpinner isLoading={isSubmitting} />}
-      {/* {isAlert && (
-        <DialogAlert
-          isOpen={isAlert}
-          title="Are you absolutely sure?"
-          description="This action cannot be undone. This will permanently delete your account and remove your data from our servers."
-          cancelLabel="Cancel"
-          onCancell={closeDialog}
-        />
-      )} */}
     </div>
   );
 };

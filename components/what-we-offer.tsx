@@ -9,28 +9,6 @@ const WhatWeOffer = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   return (
     <div className="mx-auto  mt-16 max-w-6xl px-4 text-center">
-      {/* Trusted by Section */}
-      {/* <div className="text-center">
-          <h2 className="text-2xl font-bold">Trusted by</h2>
-          <p className="mt-2 text-lg ">
-            They work to find cures to cancer, travel to space, build
-            tomorrow&lsquo;s innovations, and beyond.
-          </p>
-          <div className="mt-8 flex justify-center space-x-6">
-            {logos.map((logo, index) => (
-              <Image
-                key={index}
-                src={`/images/logos/${logo}`}
-                alt={logo.split(".")[0]}
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            ))}
-          </div>
-        </div> */}
-
-      {/* What We Offer Section */}
       <div className=" text-center">
         <h2 className="section-title">What We Offer</h2>
         <p className="section-description mb-8 mt-10 ">
@@ -39,7 +17,6 @@ const WhatWeOffer = () => {
           thousands of messages influencers receive.
         </p>
 
-        {/* Feature Cards */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {sections.map((section, index) => (
             <div
@@ -66,22 +43,22 @@ const WhatWeOffer = () => {
                   />
                 )}
               </AnimatePresence>
-              <Card className=" relative z-20 h-[300px] w-full overflow-hidden border border-transparent bg-card">
-                <CardHeader className="mb-6 flex  space-y-2 text-white">
+              <Card className="relative z-20 h-[330px] w-full overflow-hidden border border-transparent bg-card">
+                <CardHeader className="mb-3 flex  space-y-2 text-white">
                   <div className=" flex size-16 items-center justify-center  rounded-full border-2 ">
                     <Image
                       width={40}
                       height={40}
                       src={section.icon}
-                      alt="Earth"
+                      alt={section.title}
                     />
                   </div>
                 </CardHeader>
-                <CardContent className=" justify-start ">
+                <CardContent className="justify-start ">
                   <h3 className="mb-2 text-start text-lg font-medium text-white max-md:text-base">
                     {section.title}
                   </h3>
-                  <p className="text-justify text-lg  text-gray-500 max-md:text-base">
+                  <p className="text-left text-lg  text-gray-500 max-md:text-base">
                     {section.description}
                   </p>
                 </CardContent>

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { AiOutlineLogout } from "react-icons/ai";
 
 import {
   Sheet,
@@ -8,28 +9,43 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { navItems } from "@/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { logout } from "@/lib/appwrite";
+import { useDataContext } from "@/context/DataContext";
 
 const NavContent = () => {
+  const { setLoading, setUserId } = useDataContext();
   const pathName = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      setLoading(true);
+      localStorage.removeItem("userId");
+      setUserId("");
+      await logout();
+      router.replace("/");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className="flex h-full flex-col gap-6   pt-16">
       {navItems.map((item) => {
         const isActive =
-          (pathName.includes(item.url) && item.url.length > 1) ||
+          (pathName?.includes(item.url) && item.url.length > 1) ||
           pathName === item.url;
         return (
           <SheetClose asChild key={item.url}>
             <Link
               href={item.url}
               className={`${
-                isActive
-                  ? "primary-gradient text-light-900 rounded-lg"
-                  : "text-dark300_light900"
+                isActive ? "text-gray-400" : " text-white hover:text-gray-400"
               } flex items-center justify-start gap-4 p-4`}
             >
               {/* <Image
@@ -39,13 +55,23 @@ const NavContent = () => {
                 alt={item.label}
                 className={`${isActive ? "" : "invert-colors"}`}
               /> */}
-              <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+              <p className={`${isActive ? "font-bold" : "font-medium"}`}>
                 {item.name}
               </p>
             </Link>
           </SheetClose>
         );
       })}
+
+      {localStorage.getItem("userId") && (
+        <span className="pl-4">
+          <AiOutlineLogout
+            size={30}
+            onClick={handleLogout}
+            className="text-red-600"
+          />
+        </span>
+      )}
     </section>
   );
 };
@@ -55,7 +81,7 @@ const MobileNav = () => {
     <Sheet>
       <SheetTrigger asChild>
         <svg
-          className="size-6"
+          className="size-10"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -68,22 +94,19 @@ const MobileNav = () => {
           />
         </svg>
       </SheetTrigger>
-      <SheetContent side="left" className="border-none bg-slate-500">
-        <Link href="/" className="flex items-center gap-1">
-          <Image
-            src="/assets/images/site-logo.svg"
-            width={23}
-            height={23}
-            alt="devflow"
-          />
-          <p className="h2-bold  text-dark100_light900 font-spaceGrotesk">
-            Dev<span className="text-primary-500">Overflow</span>
-          </p>
+      <SheetContent side="left" className="border-none bg-card">
+        <Link
+          href="/"
+          className="text-gradient-vertical-green flex items-center gap-1 text-2xl font-bold "
+        >
+          My Imaginator
         </Link>
 
         <div>
           <SheetClose asChild>
-            <NavContent />
+            <div>
+              <NavContent />
+            </div>
           </SheetClose>
         </div>
       </SheetContent>

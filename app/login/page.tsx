@@ -15,11 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { signIn } from "@/lib/appwrite";
 import React, { useState } from "react";
 import { signIn } from "@/lib/appwrite";
 import LoadingSpinner from "@/components/shared/loading";
-// import LoadingSpinner from "./shared/Loading";
+import { useRouter } from "next/navigation";
+import { useDataContext } from "@/context/DataContext";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
@@ -31,6 +31,7 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
+  const { setUserId } = useDataContext();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -39,7 +40,7 @@ const Login: React.FC = () => {
     },
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
+  const router = useRouter();
   const onSubmit = async (data: LoginFormValues) => {
     try {
       setIsSubmitting(true);
@@ -47,7 +48,10 @@ const Login: React.FC = () => {
         email: data.email,
         password: data.password,
       });
-
+      const userId = res.userId;
+      localStorage.setItem("userId", userId);
+      setUserId(userId);
+      router.replace("/");
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -57,15 +61,15 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex  w-full items-center justify-center px-4">
+    <div className="flex items-center justify-center px-4 pt-16 max-md:items-start max-md:pt-20">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="   mx-auto max-w-sm space-y-8 rounded-xl border shadow-lg"
+          className="mx-auto w-full max-w-sm space-y-8 rounded-xl border border-gray-600 shadow-lg"
         >
           <div className="p-6">
-            <h1 className=" text-2xl font-semibold">Login</h1>
-            <p className="">Enter your email and password below</p>
+            <h1 className="text-2xl font-semibold">Login</h1>
+            <p>Enter your email and password below</p>
           </div>
           <div className="space-y-4 p-6">
             <FormField
@@ -73,13 +77,13 @@ const Login: React.FC = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="">Email</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="email"
                       type="email"
                       placeholder="me@example.com"
-                      className="focus:ring-light-400 focus:ring-2"
+                      className="border border-gray-600 bg-card"
                       {...field}
                     />
                   </FormControl>
@@ -96,7 +100,7 @@ const Login: React.FC = () => {
                     <FormLabel className="">Password</FormLabel>
                     <Link
                       href="#"
-                      className=" ml-auto text-sm underline hover:text-gray-500"
+                      className="ml-auto text-sm text-gray-400 underline hover:text-gray-500"
                     >
                       Forgot your password?
                     </Link>
@@ -105,7 +109,7 @@ const Login: React.FC = () => {
                     <Input
                       id="password"
                       type="password"
-                      className="border-light-400 bg-light-300 text-light-700 focus:ring-light-400 focus:ring-2"
+                      className="border border-gray-600 bg-card"
                       {...field}
                     />
                   </FormControl>
@@ -113,17 +117,14 @@ const Login: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              className="border-light-600 bg-light-600 text-light-100 hover:border-light-400 hover:text-light-600 w-full border transition-all hover:bg-transparent"
-            >
+            <Button type="submit" className="btn-gradient w-full">
               Login
             </Button>
           </div>
-          <div className=" p-6 text-center text-sm">
+          <div className="p-6 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className=" underline hover:text-gray-500">
-              Sign up
+            <Link href="/register" className="underline hover:text-gray-500">
+              Register
             </Link>
           </div>
         </form>
