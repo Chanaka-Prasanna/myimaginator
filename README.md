@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI-Powered Social Media Caption Generator
 
-## Getting Started
+🚀 Project Overview
 
-First, run the development server:
+This project leverages Google's Gemini 1.5 Flash model to generate engaging, creative captions for social media posts. Users can create, like, and share captions directly on the platform after registering an account. A pricing section will be introduced soon.
 
-```bash
+🌟 Key Features:
+
+✨ AI-Powered Captions – Instantly generate captions using advanced AI technology.
+
+❤️ User Engagement – Like and share your favorite captions.
+
+🔐 Account Management – Save and revisit liked captions after logging in.
+
+🛠️ Tools & Technologies:
+
+Frontend: Next.js (v15)
+
+Backend: Appwrite
+
+Styling: Tailwind CSS, shadcn
+
+Language: TypeScript
+
+🏃‍♂️ Run Locally
+
+Follow these steps to run the project locally on your machine:
+
+1. 📥 Clone the Repository:
+
+git clone https://github.com/your-repo-url
+cd your-repo-name
+
+2. 📦 Install Dependencies:
+
+npm install --force
+
+Note: The --force flag is required due to compatibility issues with Next.js 15.
+
+3. ⚙️ Configure Environment Variables:
+
+Create a .env file in the root directory and add the following keys:
+
+NEXT_PUBLIC_APPWITE_ENDPOINT=your_appwrite_endpoint
+NEXT_PUBLIC_APPWRITE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_APPWRITE_DB_ID=your_database_id
+NEXT_PUBLIC_USER_COLLECTION_ID=your_user_collection_id
+NEXT_PUBLIC_CAPTIONS_COLLECTIONS_ID=your_captions_collection_id
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+RESEND_API_KEY=your_resend_api_key
+
+4. 🚀 Run the Development Server:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Your application will now be accessible at http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🔮 Coming Soon
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+💳 Pricing Section – Flexible pricing plans to suit your needs.
 
-## Learn More
+📈 More Features – Enhanced caption recommendations and community-driven content.
 
-To learn more about Next.js, take a look at the following resources:
+📄 License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.
