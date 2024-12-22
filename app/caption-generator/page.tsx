@@ -158,6 +158,11 @@ const CaptionGenerator = () => {
       try {
         setLoading(true);
         const result = await getAllCaptions();
+        if (!result) {
+          return {
+            notFound: true,
+          };
+        }
         setCaptions(result);
       } catch (error) {
         console.log(error);
