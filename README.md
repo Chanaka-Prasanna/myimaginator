@@ -19,7 +19,7 @@ This project leverages Google's Gemini 1.5 Flash model to generate engaging, cre
 - **Frontend:** Next.js (v15)
 - **Backend:** Appwrite
 - **Styling:** Tailwind CSS, shadcn
-- **Language:** TypeScript
+- **Languages:** JavaScript / TypeScript
 
 ---
 
