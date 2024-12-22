@@ -55,7 +55,13 @@ const NavContent = () => {
                 alt={item.label}
                 className={`${isActive ? "" : "invert-colors"}`}
               /> */}
-              <p className={`${isActive ? "font-bold" : "font-medium"}`}>
+              <p
+                className={`${
+                  isActive
+                    ? "font-bold text-white"
+                    : "font-medium text-gray-400  hover:text-white"
+                }`}
+              >
                 {item.name}
               </p>
             </Link>

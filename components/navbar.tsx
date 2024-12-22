@@ -69,7 +69,7 @@ const Navbar = () => {
                 key={item.name}
                 href={item.url}
                 className={`${
-                  isActive ? "text-gray-400" : " text-white hover:text-gray-400"
+                  isActive ? " text-white" : "text-gray-400  hover:text-white"
                 } rounded-md px-3 py-2 font-medium md:text-xl`}
               >
                 {item.name}
